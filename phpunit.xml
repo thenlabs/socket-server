@@ -1,0 +1,14 @@
+<phpunit bootstrap="bootstrap.php">
+    <php>
+        <env name="SOCKET_URL" value="tcp://127.0.0.1:9000"></env>
+    </php>
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Functional">
+            <directory>tests/Functional</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
