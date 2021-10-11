@@ -8,6 +8,9 @@
         }
     ],
     "require": {
+        "thenlabs/task-loop": "1.0.x-dev",
+        "symfony/event-dispatcher": ">=4.4",
+        "monolog/monolog": "^2.1"
     },
     "require-dev": {
         "thenlabs/pyramidal-tests": "2.0.x-dev",

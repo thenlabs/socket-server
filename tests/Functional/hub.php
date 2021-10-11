@@ -1,24 +1,8 @@
-
-# SocketServer
-
-A library for create network applications with PHP.
-
-## Installation.
-
-    $ composer require thenlabs/socket-server 1.0.x-dev
-
-## Usage.
-
-The below code show a bare network application that accept multiple connections and forward each incoming message to the rest of the connections.
-
->That application can be found in the `tests/Functional/hub.php` file. For test it you can run `php tests/Functional/hub.php`.
-
-Can be seen that the `SocketServer` class offers the necessary events for react at the differents connection status.
-
->Check the `SocketServer` API for knows all his possibilities.
-
-```php
 <?php
+/**
+ * What this program does is accept multiple connections and forward
+ * each incoming message to the rest of the connections.
+ */
 
 require_once __DIR__.'/../../bootstrap.php';
 
@@ -76,12 +60,3 @@ class HubServer extends SocketServer
 
 $server = new HubServer(['socket' => $argv[1] ?? 'tcp://127.0.0.1:9000']);
 $server->start();
-```
-
-## Development.
-
-### Running the tests.
-
-For run the tests, runs the next command:
-
-    $ ./vendor/bin/pyramidal
