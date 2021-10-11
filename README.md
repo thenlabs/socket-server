@@ -5,7 +5,7 @@ A library for create network applications with PHP.
 
 ## Installation.
 
-    $ composer require thenlabs/socket-server 1.0.x-dev
+    $ composer require thenlabs/socket-server
 
 ## Usage.
 
