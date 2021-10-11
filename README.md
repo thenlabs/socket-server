@@ -78,6 +78,10 @@ $server = new HubServer(['socket' => $argv[1] ?? 'tcp://127.0.0.1:9000']);
 $server->start();
 ```
 
+The above example works as follows:
+
+![](demo.gif)
+
 ## Development.
 
 ### Running the tests.
