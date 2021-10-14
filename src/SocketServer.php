@@ -83,21 +83,31 @@ class SocketServer
         $this->logger = new Logger($this->config['logger_name']);
         $this->logger->pushHandler(new StreamHandler(STDOUT));
 
-        if ($this->config['default_listeners']['onConnection']) {
+        if (isset($this->config['default_listeners']['onConnection']) &&
+            true === $this->config['default_listeners']['onConnection']
+        ) {
             $onConnectionCallback = [$this, 'onConnection'];
             if (is_callable($onConnectionCallback)) {
                 $this->dispatcher->addListener(ConnectionEvent::class, $onConnectionCallback);
             }
         }
 
-        $onMessageCallback = [$this, 'onMessage'];
-        if (is_callable($onMessageCallback)) {
-            $this->dispatcher->addListener(MessageEvent::class, $onMessageCallback);
+        if (isset($this->config['default_listeners']['onMessage']) &&
+            true === $this->config['default_listeners']['onMessage']
+        ) {
+            $onMessageCallback = [$this, 'onMessage'];
+            if (is_callable($onMessageCallback)) {
+                $this->dispatcher->addListener(MessageEvent::class, $onMessageCallback);
+            }
         }
 
-        $onDisconnectionCallback = [$this, 'onDisconnection'];
-        if (is_callable($onDisconnectionCallback)) {
-            $this->dispatcher->addListener(DisconnectionEvent::class, $onDisconnectionCallback);
+        if (isset($this->config['default_listeners']['onDisconnection']) &&
+            true === $this->config['default_listeners']['onDisconnection']
+        ) {
+            $onDisconnectionCallback = [$this, 'onDisconnection'];
+            if (is_callable($onDisconnectionCallback)) {
+                $this->dispatcher->addListener(DisconnectionEvent::class, $onDisconnectionCallback);
+            }
         }
     }
 
