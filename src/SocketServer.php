@@ -33,7 +33,12 @@ class SocketServer
             'server_started' => 'Server started in %SOCKET%',
             'server_stopped' => 'Server stopped.',
             'new_connection' => 'New connection from %HOST%',
-            'disconnection' => 'Connection from %HOST% has been closed.',
+            'disconnection'  => 'Connection from %HOST% has been closed.',
+        ],
+        'default_listeners' => [
+            'onConnection'    => true,
+            'onMessage'       => true,
+            'onDisconnection' => true,
         ],
     ];
 
@@ -78,9 +83,11 @@ class SocketServer
         $this->logger = new Logger($this->config['logger_name']);
         $this->logger->pushHandler(new StreamHandler(STDOUT));
 
-        $onConnectionCallback = [$this, 'onConnection'];
-        if (is_callable($onConnectionCallback)) {
-            $this->dispatcher->addListener(ConnectionEvent::class, $onConnectionCallback);
+        if ($this->config['default_listeners']['onConnection']) {
+            $onConnectionCallback = [$this, 'onConnection'];
+            if (is_callable($onConnectionCallback)) {
+                $this->dispatcher->addListener(ConnectionEvent::class, $onConnectionCallback);
+            }
         }
 
         $onMessageCallback = [$this, 'onMessage'];
