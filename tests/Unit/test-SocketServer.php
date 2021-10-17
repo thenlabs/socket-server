@@ -19,7 +19,6 @@ test(function () {
     ];
 
     $server = new class($config) extends SocketServer {
-
         public function onConnection(): void
         {
         }
@@ -37,7 +36,6 @@ test(function () {
     ];
 
     $server = new class($config) extends SocketServer {
-
         public function onMessage(): void
         {
         }
@@ -55,7 +53,6 @@ test(function () {
     ];
 
     $server = new class($config) extends SocketServer {
-
         public function onDisconnection(): void
         {
         }

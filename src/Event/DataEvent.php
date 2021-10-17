@@ -8,22 +8,22 @@ use ThenLabs\SocketServer\SocketServer;
 /**
  * @author Andy Daniel Navarro Taño <andaniel05@gmail.com>
  */
-class MessageEvent extends ConnectionEvent
+class DataEvent extends ConnectionEvent
 {
     /**
      * @var string
      */
-    protected $message;
+    protected $data;
 
-    public function __construct(SocketServer $server, Connection $connection, string $message)
+    public function __construct(SocketServer $server, Connection $connection, string $data)
     {
         parent::__construct($server, $connection);
 
-        $this->message = $message;
+        $this->data = $data;
     }
 
-    public function getMessage(): string
+    public function getData(): string
     {
-        return $this->message;
+        return $this->data;
     }
 }

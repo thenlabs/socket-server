@@ -8,8 +8,8 @@ use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use ThenLabs\SocketServer\Event\ConnectionEvent;
+use ThenLabs\SocketServer\Event\DataEvent;
 use ThenLabs\SocketServer\Event\DisconnectionEvent;
-use ThenLabs\SocketServer\Event\MessageEvent;
 use ThenLabs\SocketServer\Exception\SocketServerException;
 use ThenLabs\SocketServer\Task\ConnectionTask;
 use ThenLabs\SocketServer\Task\InboundConnectionsTask;
@@ -37,7 +37,7 @@ class SocketServer
         ],
         'default_listeners' => [
             'onConnection'    => true,
-            'onMessage'       => true,
+            'onData'          => true,
             'onDisconnection' => true,
         ],
     ];
@@ -92,12 +92,12 @@ class SocketServer
             }
         }
 
-        if (isset($this->config['default_listeners']['onMessage']) &&
-            true === $this->config['default_listeners']['onMessage']
+        if (isset($this->config['default_listeners']['onData']) &&
+            true === $this->config['default_listeners']['onData']
         ) {
-            $onMessageCallback = [$this, 'onMessage'];
+            $onMessageCallback = [$this, 'onData'];
             if (is_callable($onMessageCallback)) {
-                $this->dispatcher->addListener(MessageEvent::class, $onMessageCallback);
+                $this->dispatcher->addListener(DataEvent::class, $onMessageCallback);
             }
         }
 

@@ -3,8 +3,8 @@
 namespace ThenLabs\SocketServer\Task;
 
 use ThenLabs\SocketServer\Connection;
+use ThenLabs\SocketServer\Event\DataEvent;
 use ThenLabs\SocketServer\Event\DisconnectionEvent;
-use ThenLabs\SocketServer\Event\MessageEvent;
 use ThenLabs\TaskLoop\AbstractTask;
 
 /**
@@ -46,13 +46,13 @@ class ConnectionTask extends AbstractTask
             return;
         }
 
-        $message = fgets($socket);
-        $message = trim($message);
+        $data = fgets($socket);
+        $data = trim($data);
 
-        if (! $message) {
+        if (! $data) {
             return;
         }
 
-        $dispatcher->dispatch(new MessageEvent($server, $this->connection, $message));
+        $dispatcher->dispatch(new DataEvent($server, $this->connection, $data));
     }
 }

@@ -7,8 +7,8 @@
 require_once __DIR__.'/../../bootstrap.php';
 
 use ThenLabs\SocketServer\Event\ConnectionEvent;
+use ThenLabs\SocketServer\Event\DataEvent;
 use ThenLabs\SocketServer\Event\DisconnectionEvent;
-use ThenLabs\SocketServer\Event\MessageEvent;
 use ThenLabs\SocketServer\SocketServer;
 
 class HubServer extends SocketServer
@@ -24,11 +24,11 @@ class HubServer extends SocketServer
         $this->connections[] = $event->getConnection();
     }
 
-    public function onMessage(MessageEvent $event): void
+    public function onData(DataEvent $event): void
     {
-        $message = $event->getMessage();
+        $data = $event->getData();
 
-        switch ($message) {
+        switch ($data) {
             case 'exit':
                 $event->getConnection()->close();
                 break;
@@ -40,7 +40,7 @@ class HubServer extends SocketServer
             default:
                 foreach ($this->connections as $connection) {
                     if ($connection != $event->getConnection()) {
-                        $connection->writeLine($message);
+                        $connection->writeLine($data);
                     }
                 }
                 break;
@@ -58,5 +58,9 @@ class HubServer extends SocketServer
     }
 }
 
-$server = new HubServer(['socket' => $argv[1] ?? 'tcp://127.0.0.1:9000']);
+$server = new HubServer([
+    'socket' => $argv[1] ?? 'tcp://127.0.0.1:9000',
+    'loop_delay' => 100000, // the default value is 1 but causes conflicts with xdebug.
+]);
+
 $server->start();
