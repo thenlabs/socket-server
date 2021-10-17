@@ -166,7 +166,7 @@ class SocketServer
         return $socket;
     }
 
-    public function start(): void
+    public function start(bool $startLoop = true): void
     {
         $this->socket = $this->createSocket();
 
@@ -177,7 +177,10 @@ class SocketServer
         stream_set_blocking($this->socket, false);
 
         $this->loop->addTask(new InboundConnectionsTask($this));
-        $this->loop->start($this->config['loop_delay']);
+
+        if ($startLoop) {
+            $this->loop->start($this->config['loop_delay']);
+        }
     }
 
     public function stop(): void
