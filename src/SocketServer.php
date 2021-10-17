@@ -199,4 +199,19 @@ class SocketServer
             }
         }
     }
+
+    public function readDataFromConnection(Connection $connection): void
+    {
+        $data = fgets($connection->getSocket());
+
+        if (is_string($data)) {
+            $data = trim($data);
+        }
+
+        if (! $data) {
+            return;
+        }
+
+        $this->dispatcher->dispatch(new DataEvent($this, $connection, $data));
+    }
 }
