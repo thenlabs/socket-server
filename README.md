@@ -3,6 +3,8 @@
 
 A library for create network applications with PHP.
 
+>If you like this project gift us a ⭐.
+
 ## Installation.
 
     $ composer require thenlabs/socket-server
@@ -19,12 +21,16 @@ Can be seen that the `SocketServer` class offers the necessary events for react 
 
 ```php
 <?php
+/**
+ * What this program does is accept multiple connections and forward
+ * each incoming message to the rest of the connections.
+ */
 
 require_once __DIR__.'/../../bootstrap.php';
 
 use ThenLabs\SocketServer\Event\ConnectionEvent;
+use ThenLabs\SocketServer\Event\DataEvent;
 use ThenLabs\SocketServer\Event\DisconnectionEvent;
-use ThenLabs\SocketServer\Event\MessageEvent;
 use ThenLabs\SocketServer\SocketServer;
 
 class HubServer extends SocketServer
@@ -40,11 +46,11 @@ class HubServer extends SocketServer
         $this->connections[] = $event->getConnection();
     }
 
-    public function onMessage(MessageEvent $event): void
+    public function onData(DataEvent $event): void
     {
-        $message = $event->getMessage();
+        $data = $event->getData();
 
-        switch ($message) {
+        switch ($data) {
             case 'exit':
                 $event->getConnection()->close();
                 break;
@@ -56,7 +62,7 @@ class HubServer extends SocketServer
             default:
                 foreach ($this->connections as $connection) {
                     if ($connection != $event->getConnection()) {
-                        $connection->writeLine($message);
+                        $connection->writeLine($data);
                     }
                 }
                 break;
