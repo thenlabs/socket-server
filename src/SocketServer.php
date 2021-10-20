@@ -27,7 +27,7 @@ class SocketServer
         'socket' => '',
         'blocking' => false,
         'logger_name' => 'thenlabs_socket_server',
-        'timeout' => -1,
+        'timeout' => 0,
         'loop_delay' => 1,
         'log_messages' => [
             'server_started' => 'Server started in %SOCKET%',
@@ -204,14 +204,8 @@ class SocketServer
     {
         $data = fgets($connection->getSocket());
 
-        if (is_string($data)) {
-            $data = trim($data);
+        if (is_string($data) && ! empty($data)) {
+            $this->dispatcher->dispatch(new DataEvent($this, $connection, $data));
         }
-
-        if (! $data) {
-            return;
-        }
-
-        $this->dispatcher->dispatch(new DataEvent($this, $connection, $data));
     }
 }

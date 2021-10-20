@@ -24,7 +24,10 @@ class InboundConnectionsTask extends AbstractTask
 
     public function run(): void
     {
-        $clientSocket = @stream_socket_accept($this->server->getSocket(), 0);
+        $clientSocket = @stream_socket_accept(
+            $this->server->getSocket(),
+            $this->server->getConfig()['timeout']
+        );
 
         if (! is_resource($clientSocket)) {
             return;
