@@ -210,6 +210,18 @@ class SocketServer
         }
     }
 
+    /**
+     * Read input data from a client socket.
+     *
+     * With this method it's implements the strategy for read the input data from clients. Can be
+     * seen that by default the sockets are read using the fgets function. In case which will be
+     * necessary to implement a custom strategy, it's should override this method.
+     *
+     * Keep in mind that this method is the responsible to trigger the event.
+     *
+     * @param Connection $connection
+     * @return void
+     */
     public function readDataFromConnection(Connection $connection): void
     {
         $data = fgets($connection->getSocket());

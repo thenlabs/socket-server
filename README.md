@@ -1,9 +1,16 @@
 
 # SocketServer
 
-A library for create network applications with PHP.
+An useful library for creating asynchronous network applications with PHP.
 
 >If you like this project gift us a ⭐.
+
+## Features.
+
+- Asynchronous connections.
+- Multiple configuration options.
+- Event system to implement the application logic.
+- Logs support.
 
 ## Installation.
 
