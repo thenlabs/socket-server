@@ -126,6 +126,11 @@ class SocketServer
         return $this->loop;
     }
 
+    public function setLoop(TaskLoop $loop): void
+    {
+        $this->loop = $loop;
+    }
+
     public function getConfig(): array
     {
         return $this->config;
@@ -164,6 +169,11 @@ class SocketServer
         }
 
         return $socket;
+    }
+
+    public function run(): void
+    {
+        $this->loop->runTasks();
     }
 
     public function start(bool $startLoop = true): void

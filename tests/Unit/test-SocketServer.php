@@ -3,6 +3,7 @@
 use ThenLabs\SocketServer\Event\ConnectionEvent;
 use ThenLabs\SocketServer\Exception\MissingUrlException;
 use ThenLabs\SocketServer\SocketServer;
+use ThenLabs\TaskLoop\TaskLoop;
 
 test(function () {
     $this->expectException(MissingUrlException::class);
@@ -59,4 +60,19 @@ test(function () {
     };
 
     $this->assertFalse($server->getDispatcher()->hasListeners(DisconnectionEvent::class));
+});
+
+test(function () {
+    $loop = $this->getMockBuilder(TaskLoop::class)
+        ->disableOriginalConstructor()
+        ->setMethods(['runTasks'])
+        ->getMock();
+    $loop->expects($this->once())
+        ->method('runTasks')
+    ;
+
+    $server = new SocketServer(['socket' => 'tcp://127.0.0.1:9090']);
+    $server->setLoop($loop);
+
+    $server->run(); // act
 });
