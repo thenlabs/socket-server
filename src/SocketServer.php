@@ -186,8 +186,6 @@ class SocketServer
 
         stream_set_blocking($this->socket, false);
 
-        $this->loop->addTask(new InboundConnectionsTask($this));
-
         if ($startLoop) {
             $this->loop->start($this->config['loop_delay']);
         }
@@ -224,7 +222,7 @@ class SocketServer
      */
     public function readDataFromConnection(Connection $connection): void
     {
-        $data = fgets($connection->getSocket());
+        $data = stream_get_contents($connection->getSocket());
 
         if (is_string($data) && ! empty($data)) {
             $this->dispatcher->dispatch(new DataEvent($this, $connection, $data));
