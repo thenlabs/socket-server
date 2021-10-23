@@ -33,11 +33,9 @@ class InboundConnectionsTask extends AbstractTask
             return;
         }
 
-        $this->server->getLogger()->debug(
-            $this->server->getLogMessage('new_connection', [
-                '%HOST%' => stream_socket_get_name($clientSocket, false),
-            ])
-        );
+        $this->server->log('new_connection', [
+            '%HOST%' => stream_socket_get_name($clientSocket, false),
+        ]);
 
         stream_set_blocking($clientSocket, false);
 

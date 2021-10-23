@@ -34,11 +34,7 @@ class ConnectionTask extends AbstractTask
         $meta = @stream_get_meta_data($socket);
 
         if (false === $meta || true === $meta['eof']) {
-            $server->getLogger()->debug(
-                $server->getLogMessage('disconnection', [
-                    '%HOST%' => $this->connection->getSocketName(),
-                ])
-            );
+            $server->log('disconnection', ['%HOST%' => $this->connection->getSocketName()]);
 
             $dispatcher->dispatch(new DisconnectionEvent($server, $this->connection));
             $server->getLoop()->dropTask($this);

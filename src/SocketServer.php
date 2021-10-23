@@ -12,7 +12,6 @@ use ThenLabs\SocketServer\Event\DataEvent;
 use ThenLabs\SocketServer\Event\DisconnectionEvent;
 use ThenLabs\SocketServer\Exception\SocketServerException;
 use ThenLabs\SocketServer\Task\ConnectionTask;
-use ThenLabs\SocketServer\Task\InboundConnectionsTask;
 use ThenLabs\TaskLoop\TaskLoop;
 
 /**
@@ -156,6 +155,17 @@ class SocketServer
         );
     }
 
+    public function log(string $key, array $parameters = [], int $level = Logger::DEBUG): void
+    {
+        $message = $this->getLogMessage($key, $parameters);
+
+        if (null === $message) {
+            return;
+        }
+
+        $this->logger->addRecord($level, $message);
+    }
+
     protected function createSocket()
     {
         $socket = stream_socket_server(
@@ -180,9 +190,7 @@ class SocketServer
     {
         $this->socket = $this->createSocket();
 
-        $this->logger->debug(
-            $this->getLogMessage('server_started', ['%SOCKET%' => $this->config['socket']])
-        );
+        $this->log('server_started', ['%SOCKET%' => $this->config['socket']]);
 
         stream_set_blocking($this->socket, false);
 
@@ -195,7 +203,7 @@ class SocketServer
     {
         fclose($this->socket);
 
-        $this->logger->debug($this->getLogMessage('server_stopped'));
+        $this->log('server_stopped');
 
         $this->loop->stop();
 

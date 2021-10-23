@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e610012b2e4e62619ab189fc39df258",
+    "content-hash": "00e4e603acbcefa42b0715b825e77469",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -521,16 +521,16 @@
         },
         {
             "name": "thenlabs/task-loop",
-            "version": "1.0.x-dev",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thenlabs/task-loop.git",
-                "reference": "e10fab55989963e90975a2c677adc4d7c52ae5e9"
+                "reference": "75cec4395250ba7d00a60339e6ff2247f5b96609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thenlabs/task-loop/zipball/e10fab55989963e90975a2c677adc4d7c52ae5e9",
-                "reference": "e10fab55989963e90975a2c677adc4d7c52ae5e9",
+                "url": "https://api.github.com/repos/thenlabs/task-loop/zipball/75cec4395250ba7d00a60339e6ff2247f5b96609",
+                "reference": "75cec4395250ba7d00a60339e6ff2247f5b96609",
                 "shasum": ""
             },
             "require": {
@@ -540,7 +540,6 @@
                 "friendsofphp/php-cs-fixer": "^3.2",
                 "thenlabs/pyramidal-tests": "2.0.x-dev"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -559,9 +558,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thenlabs/task-loop/issues",
-                "source": "https://github.com/thenlabs/task-loop/tree/1.0"
+                "source": "https://github.com/thenlabs/task-loop/tree/v1.0.1"
             },
-            "time": "2021-10-09T16:13:30+00:00"
+            "time": "2021-10-23T21:00:51+00:00"
         }
     ],
     "packages-dev": [
@@ -1353,16 +1352,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "5.2.2",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556"
+                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/069a785b2141f5bcf49f3e353548dc1cce6df556",
-                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/622548b623e81ca6d78b721c5e029f4ce664f170",
+                "reference": "622548b623e81ca6d78b721c5e029f4ce664f170",
                 "shasum": ""
             },
             "require": {
@@ -1373,7 +1372,8 @@
                 "webmozart/assert": "^1.9.1"
             },
             "require-dev": {
-                "mockery/mockery": "~1.3.2"
+                "mockery/mockery": "~1.3.2",
+                "psalm/phar": "^4.8"
             },
             "type": "library",
             "extra": {
@@ -1403,9 +1403,9 @@
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.3.0"
             },
-            "time": "2020-09-03T19:13:55+00:00"
+            "time": "2021-10-19T17:43:47+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -4314,12 +4314,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thenlabs/pyramidal-tests.git",
-                "reference": "99eae0ce5d9316a9be4be69499dbe87e548e9197"
+                "reference": "9c986875b206febcc4492415e8257090ff7fd8b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thenlabs/pyramidal-tests/zipball/99eae0ce5d9316a9be4be69499dbe87e548e9197",
-                "reference": "99eae0ce5d9316a9be4be69499dbe87e548e9197",
+                "url": "https://api.github.com/repos/thenlabs/pyramidal-tests/zipball/9c986875b206febcc4492415e8257090ff7fd8b6",
+                "reference": "9c986875b206febcc4492415e8257090ff7fd8b6",
                 "shasum": ""
             },
             "require": {
@@ -4329,7 +4329,7 @@
                 "thenlabs/components": "^1.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.12"
+                "friendsofphp/php-cs-fixer": "^3.2"
             },
             "default-branch": true,
             "bin": [
@@ -4355,7 +4355,7 @@
                 "issues": "https://github.com/thenlabs/pyramidal-tests/issues",
                 "source": "https://github.com/thenlabs/pyramidal-tests/tree/2.0"
             },
-            "time": "2021-10-01T15:47:08+00:00"
+            "time": "2021-10-22T10:55:38+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -4469,7 +4469,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "thenlabs/task-loop": 20,
         "thenlabs/pyramidal-tests": 20
     },
     "prefer-stable": false,
