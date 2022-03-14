@@ -2,6 +2,8 @@
 
 namespace ThenLabs\SocketServer;
 
+use ThenLabs\SocketServer\Task\ConnectionTask;
+
 /**
  * @author Andy Daniel Navarro Taño <andaniel05@gmail.com>
  */
@@ -70,6 +72,17 @@ class Connection
 
     public function close(): void
     {
+        $taskLoop = $this->server->getLoop();
+
+        foreach ($taskLoop->getTasks() as $task) {
+            if ($task instanceof ConnectionTask &&
+                $this === $task->getConnection()
+            ) {
+                $taskLoop->dropTask($task);
+                break;
+            }
+        }
+
         fclose($this->socket);
     }
 }
