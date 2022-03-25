@@ -2,6 +2,7 @@
 
 namespace ThenLabs\SocketServer\Task;
 
+use Error;
 use ThenLabs\SocketServer\Connection;
 use ThenLabs\SocketServer\Event\DisconnectionEvent;
 use ThenLabs\TaskLoop\AbstractTask;
@@ -31,16 +32,25 @@ class ConnectionTask extends AbstractTask
         $server = $this->connection->getServer();
         $dispatcher = $server->getDispatcher();
         $socket = $this->connection->getSocket();
-        $meta = @stream_get_meta_data($socket);
 
-        if (false === $meta || true === $meta['eof']) {
+        $disconnect = function () use ($server, $dispatcher) {
             $server->log('disconnection', ['%HOST%' => $this->connection->getSocketName()]);
 
             $dispatcher->dispatch(new DisconnectionEvent($server, $this->connection));
             $server->getLoop()->dropTask($this);
-            return;
-        }
+        };
 
-        $server->readDataFromConnection($this->connection);
+        try {
+            $meta = @stream_get_meta_data($socket);
+
+            if (false === $meta || true === $meta['eof']) {
+                $disconnect();
+                return;
+            }
+
+            $server->readDataFromConnection($this->connection);
+        } catch (Error $e) {
+            $disconnect();
+        }
     }
 }
