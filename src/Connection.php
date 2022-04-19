@@ -72,17 +72,7 @@ class Connection
 
     public function close(): void
     {
-        $taskLoop = $this->server->getLoop();
-
-        foreach ($taskLoop->getTasks() as $task) {
-            if ($task instanceof ConnectionTask &&
-                $this === $task->getConnection()
-            ) {
-                $taskLoop->dropTask($task);
-                break;
-            }
-        }
-
+        stream_socket_shutdown($this->socket, STREAM_SHUT_RDWR);
         fclose($this->socket);
     }
 }

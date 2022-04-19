@@ -40,16 +40,20 @@ class ConnectionTask extends AbstractTask
             $server->getLoop()->dropTask($this);
         };
 
-        try {
-            $meta = @stream_get_meta_data($socket);
+        if (is_resource($socket) && !feof($socket)) {
+            try {
+                $meta = @stream_get_meta_data($socket);
 
-            if (false === $meta || true === $meta['eof']) {
+                if (false === $meta || true === $meta['eof']) {
+                    $disconnect();
+                    return;
+                }
+
+                $server->readDataFromConnection($this->connection);
+            } catch (Error $e) {
                 $disconnect();
-                return;
             }
-
-            $server->readDataFromConnection($this->connection);
-        } catch (Error $e) {
+        } else {
             $disconnect();
         }
     }
